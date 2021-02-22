@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import datetime
 
 
 def clean_data(data_set, encode_data):
