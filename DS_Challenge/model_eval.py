@@ -24,7 +24,6 @@ x_train, x_test, y_train, y_test = train_test_split(trainingDS.drop("Outcome", a
 # I initially tried feature selection as I saw low correlation between features but it resulted in a much lower
 # precision and recall with the final model. Work could be done to optimise feature selection and feature scaling
 # if you would like to see the horrible result uncomment the 'feature_selection' and 'preprocessor' lines below
-
 log_reg_pipe = Pipeline([
     # ('feature_selection', SelectFromModel(LinearSVC(penalty="l1", dual=False))),
     # ('preprocessor', StandardScaler()),

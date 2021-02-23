@@ -1,6 +1,5 @@
 import pandas as pd
 import seaborn as sns
-from scipy import stats
 from matplotlib import pyplot as plt
 
 import config as config
@@ -16,6 +15,7 @@ encoded_DS = utils.clean_data(training_DS, encode_data=True)
 print(labeled_DS.describe())
 print(labeled_DS.info())
 print(labeled_DS.Job.describe())
+print(labeled_DS.Outcome.value_counts())
 
 jobs_outcome_df = pd.crosstab(labeled_DS["Job"], labeled_DS["Outcome"], colnames=["Successful Campaign"])
 jobs_outcome_df.plot(kind="bar")
@@ -54,6 +54,24 @@ plt.yticks(rotation=30)
 plt.ylabel("Call Duration")
 plt.xlabel("Count")
 plt.savefig(config.output_dir + "call_duration_bar.png")
+plt.clf()
+
+# outcome distribution - lots of negative outcomes
+labeled_DS.Outcome.value_counts().plot.bar()
+plt.title("Outcome distribution")
+plt.yticks(rotation=30)
+plt.ylabel("Outcome")
+plt.xlabel("Count")
+plt.savefig(config.output_dir + "outcome_bar.png")
+plt.clf()
+
+# check prev_contacts vs outcome
+prev_attempts_outcome = pd.crosstab(labeled_DS["PrevAttempts"], labeled_DS["Outcome"].apply(
+    lambda x: "positive outcome" if x == 0 else "negative outcome"), colnames=["How does previous contact attempts "
+                                                                               "affect the campaign outcome?"])
+prev_attempts_outcome.plot(kind="bar")
+plt.xticks(rotation=30)
+plt.savefig(config.output_dir + "prev_attempts_outcome.png")
 plt.clf()
 
 ## Car Insruance has a higher then average correlation with the outcome
