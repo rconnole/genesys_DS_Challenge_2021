@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, roc_curve, auc, accuracy_score, precision_score, recall_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.svm import LinearSVC
 
 import config
@@ -26,7 +26,7 @@ x_train, x_test, y_train, y_test = train_test_split(trainingDS.drop("Outcome", a
 # if you would like to see the horrible result uncomment the 'feature_selection' and 'preprocessor' lines below
 log_reg_pipe = Pipeline([
     # ('feature_selection', SelectFromModel(LinearSVC(penalty="l1", dual=False))),
-    # ('preprocessor', StandardScaler()),
+    # ('preprocessor', MinMaxScaler()),
     ('classification', LogisticRegression())
 ])
 
